@@ -5,8 +5,7 @@ Video-Accident-Dataset/
 *.rar
 
 # Modelos y resultados de YOLO (pesos pesan mucho)
-runs/
-*.pt
+yolov8n.pt
 
 # Exclusiones de Python
 __pycache__/

@@ -6,7 +6,7 @@ ruta_mi_modelo = "T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/runs/detect/mi_model
 modelo = YOLO(ruta_mi_modelo) 
 
 # 2. Ruta a un video de prueba (Cámbiala por un video que la IA no haya visto)
-ruta_video_prueba = "T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Video-Accident-Dataset/head_on_collision/head_on_collision_13.mp4" 
+ruta_video_prueba = "T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Video-Accident-Dataset/head_on_collision/head_on_collision_5.mp4" 
 cap = cv2.VideoCapture(ruta_video_prueba)
 
 print("Iniciando prueba de detección...")
