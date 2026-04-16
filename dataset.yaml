@@ -1,0 +1,10 @@
+# Rutas a tus carpetas de imágenes (usamos barras normales /)
+# Para este prototipo, usaremos la misma carpeta para entrenar y validar
+train: T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Data-Guardada/head_on_collision
+val: T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Data-Guardada/head_on_collision
+
+# Número de clases
+nc: 1
+
+# Nombres de las clases (DEBE coincidir con lo que pusiste en MakeSense)
+names: ['accidente']

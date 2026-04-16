@@ -1,0 +1,14 @@
+# Dataset y videos de gran tamaño
+Data-Guardada/
+Video-Accident-Dataset/
+*.zip
+*.rar
+
+# Modelos y resultados de YOLO (pesos pesan mucho)
+runs/
+*.pt
+
+# Exclusiones de Python
+__pycache__/
+*.py[cod]
+*$py.class
