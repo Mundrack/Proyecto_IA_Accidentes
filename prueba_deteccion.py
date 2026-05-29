@@ -1,13 +1,17 @@
 import cv2
 import os
 import glob
-
+#Este script funciona como una "cámara rápida". 
+# Abre tus videos de accidentes (.mp4) uno por uno, y en lugar de guardar el video completo, guarda una foto (.jpg) 
+# cada 10 fotogramas (frames) en tu carpeta Data-Guardada.
 # --- CONFIGURACIÓN ---
-# La carpeta de origen que tiene los videos (ej. head_on_collision)
-carpeta_origen_videos = "T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Video-Accident-Dataset/side_collision"
+# carpeta_origen_videos: Carpeta de origen que contiene tus videos crudos (.mp4) de choques.
+# Dirige al directorio local en tu PC donde están guardados los videos de la categoría correspondiente.
+carpeta_origen_videos = "C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/archive/Video-Accident-Dataset/head_on_collision"
 
-# La carpeta principal donde se guardará todo
-carpeta_destino_principal = "T:/WORK SPACE/UDLA/Proyecto_IA_Accidentes/Data-Guardada"
+# carpeta_destino_principal: Carpeta de destino donde se guardarán los frames de imágenes fijas extraídas (.jpg).
+# Dirige a la carpeta local donde construirás el dataset para luego etiquetar las imágenes.
+carpeta_destino_principal = "C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/Data-Guardada"
 
 # ¿Cuántos videos máximo quieres procesar de esta carpeta?
 limite_videos = 30

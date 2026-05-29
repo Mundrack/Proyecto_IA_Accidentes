@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Detección de Accidentes - Presentación Final</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #10b981;
+            /* Verde Esmeralda */
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #020617;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        /* Slide Canvas */
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-dark);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            position: absolute;
+            overflow: hidden;
+            display: none;
+            /* Oculto por defecto */
+            flex-direction: column;
+            padding: 60px 80px;
+            border: 1px solid #334155;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Clase para la diapositiva activa */
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Ambient Glow Backgrounds */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slide>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        h2.title {
+            font-size: 48px;
+            border-left: 6px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        p {
+            font-size: 22px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Cards & Elements */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .card i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            font-size: 18px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 80px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: 'Space Grotesk';
+            line-height: 1;
+        }
+
+        .stat-box .label {
+            font-size: 20px;
+            color: var(--text-main);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .keyword-list {
+            list-style: none;
+        }
+
+        .keyword-list li {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .keyword-list li i {
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .math-box {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px dashed var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 20px;
+            color: var(--accent);
+            margin-top: 20px;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 350px;
+            background: #1e293b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 20px;
+            border: 2px dashed #475569;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Controles de navegación visuales (esquina inferior derecha) */
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+            color: #64748b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SLIDE 1: Portada -->
+    <div class="slide active" id="slide-0" style="justify-content: center; text-align: center;">
+        <i class="fa-solid fa-shield-halved" style="font-size: 80px; color: var(--accent); margin-bottom: 30px;"></i>
+        <h1>Automatización y Respuesta Rápida:<br><span>IA en Detección de Accidentes</span></h1>
+        <p style="font-size: 28px; margin-top: 20px;">Transformando cámaras CCTV en sistemas de alerta temprana al 911
+        </p>
+    </div>
+
+    <!-- SLIDE 2: El Problema -->
+    <div class="slide" id="slide-1">
+        <h2 class="title">El Problema: La Falsa Seguridad</h2>
+        <div class="grid-2">
+            <div>
+                <ul class="keyword-list">
+                    <li><i class="fa-solid fa-xmark"></i> <strong>Monitoreo Ineficiente:</strong> Imposible vigilar
+                        miles de cámaras manualmente 24/7.</li>
+                    <li><i class="fa-solid fa-clock"></i> <strong>Reacción Tardía:</strong> El 911 se entera minutos u
+                        horas después del impacto.</li>
+                    <li><i class="fa-solid fa-triangle-exclamation"></i> <strong>Dependencia Humana:</strong> Si no hay
+                        testigos que llamen, no hay rescate.</li>
+                </ul>
+                <div class="math-box" style="margin-top: 40px; border-color: #ef4444; color: #ef4444;">
+                    <i class="fa-solid fa-skull"></i> Demora en el Aviso = Aumento drástico en la fatalidad.
+                </div>
+            </div>
+            <div class="img-placeholder">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: El Impacto Real (Estadística) -->
+    <div class="slide" id="slide-2">
+        <h2 class="title">La "Hora Dorada" en Traumatología</h2>
+        <div class="grid-2">
+            <div class="stat-box">
+                <div class="number">60<span style="font-size: 40px;">min</span></div>
+                <div class="label">La "Golden Hour"</div>
+                <p style="margin-top: 20px; font-size: 18px;">Tiempo crítico tras el impacto. Recibir atención en esta
+                    ventana <strong>duplica</strong> las probabilidades de supervivencia.</p>
+            </div>
+            <div>
+                <ul class="keyword-list">
+                    <li><i class="fa-solid fa-truck-medical"></i> <strong>Atrapados en el tiempo:</strong> Muchas
+                        ambulancias llegan tarde por el retraso en la notificación inicial, no por el tráfico.</li>
+                    <li><i class="fa-solid fa-bolt"></i> <strong>Nuestra Solución:</strong> Alerta <span
+                            class="highlight">Automatizada en Tiempo Real</span> a servicios de emergencia.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Tecnologías y Dataset -->
+    <div class="slide" id="slide-3">
+        <h2 class="title">Arquitectura y Datos</h2>
+        <div class="grid-3">
+            <div class="card">
+                <i class="fa-solid fa-database"></i>
+                <h3>El Dataset</h3>
+                <p><strong>HWID12</strong> (Kaggle). Videos de CCTV reales de accidentes en carreteras. Clasificado en
+                    choques frontales, laterales y falsos positivos.</p>
+            </div>
+            <div class="card">
+                <i class="fa-brands fa-python"></i>
+                <h3>El Motor</h3>
+                <p><strong>Python & OpenCV</strong>. Extracción de frames en milisegundos y procesamiento de video
+                    continuo sin pérdida de calidad.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-brain"></i>
+                <h3>El Cerebro</h3>
+                <p><strong>YOLOv8</strong>. Red Neuronal de última generación, especializada en visión computacional y
+                    análisis predictivo.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Curación de Datos (MakeSense) -->
+    <div class="slide" id="slide-4">
+        <h2 class="title">Curación de Datos: Bounding Boxes</h2>
+        <div class="grid-2">
+            <div>
+                <ul class="keyword-list">
+                    <li><i class="fa-solid fa-object-group"></i> <strong>Lógica de Etiquetado:</strong> Encerrar
+                        <em>ambos</em> vehículos en una sola caja (Bounding Box).</li>
+                    <li><i class="fa-solid fa-chalkboard-user"></i> <strong>¿Por qué?:</strong> La IA aprende el
+                        <em>evento</em> (la superposición antinatural), no solo un carro dañado.</li>
+                    <li><i class="fa-solid fa-cloud"></i> <strong>Plataforma:</strong> <em>MakeSense.ai</em>. Web,
+                        estable, y exporta nativamente en <strong>Formato YOLO</strong> (.txt).</li>
+                </ul>
+            </div>
+            <div class="img-placeholder">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: La Matemática (YOLO) -->
+    <div class="slide" id="slide-5">
+        <h2 class="title">¿Por qué YOLO? (You Only Look Once)</h2>
+        <div class="grid-2">
+            <div>
+                <p>A diferencia de sistemas antiguos que escanean la imagen por partes, YOLO aplica una <strong>Red
+                        Neuronal Convolucional (CNN)</strong> a toda la imagen a la vez.</p>
+                <div class="math-box">
+                    <strong>Algoritmo de Regresión:</strong><br><br>
+                    Divide la imagen en una cuadrícula (Grid) S x S.<br>
+                    Predice Bounding Boxes (x, y, ancho, alto) + Probabilidad de Clase en una <em>única pasada
+                        matemática</em>.
+                </div>
+            </div>
+            <div>
+                <ul class="keyword-list">
+                    <li><i class="fa-solid fa-tachometer-alt"></i> <strong>Velocidad:</strong> Inferencia en
+                        milisegundos.</li>
+                    <li><i class="fa-solid fa-bullseye"></i> <strong>Contexto Global:</strong> Ve toda la calle,
+                        evitando falsos positivos.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: El Entrenamiento -->
+    <div class="slide" id="slide-6">
+        <h2 class="title">Fase de Entrenamiento (Transfer Learning)</h2>
+        <div class="grid-2">
+            <div class="stat-box">
+                <div class="number">25</div>
+                <div class="label">Épocas (Epochs)</div>
+            </div>
+            <div>
+                <ul class="keyword-list">
+                    <li><i class="fa-solid fa-dumbbell"></i> <strong>Transfer Learning:</strong> Tomamos un YOLO que ya
+                        "sabe ver" objetos, y lo reentrenamos para detectar <em>colisiones</em>.</li>
+                    <li><i class="fa-solid fa-scale-balanced"></i> <strong>El número mágico (25):</strong> Suficiente
+                        para que la IA entienda el patrón del choque, pero evitando el <strong>Overfitting</strong> (que
+                        la IA memorice la foto exacta y falle en videos nuevos).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Cierre y Próximos Pasos -->
+    <div class="slide" id="slide-7" style="justify-content: center; text-align: center;">
+        <i class="fa-solid fa-tower-broadcast" style="font-size: 80px; color: var(--accent); margin-bottom: 30px;"></i>
+        <h1>De la Detección a la <span>Acción</span></h1>
+        <p style="font-size: 26px; max-width: 800px; margin: 20px auto;">
+            Prototipo 100% funcional y probado.
+            <br><br><strong>Próximo Paso (Evaluación Final):</strong><br>
+            Implementación de Interfaz Web Interactiva que conectará la detección de video con la generación de un
+            reporte automatizado.
+        </p>
+    </div>
+
+    <!-- Controles visuales (Informativos) -->
+    <div class="controls">
+        <span><i class="fa-solid fa-arrow-left"></i> Anterior</span>
+        <span style="margin: 0 10px;">|</span>
+        <span>Siguiente <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+
+    <!-- Lógica de navegación con JavaScript -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            // Oculta todas las diapositivas
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+            });
+            // Muestra la diapositiva actual
+            slides[index].classList.add('active');
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                // Avanzar
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+                // Retroceder
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            }
+        });
+
+        // Navegación con clic (opcional)
+        document.addEventListener('click', (e) => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+    </script>
+</body>
+
+</html>
