@@ -23,7 +23,7 @@ while cap.isOpened():
 
     # 3. Tu IA analiza el frame buscando la clase "accidente"
     # Hemos configurado 'conf=0.95' para que solo dibuje la caja roja si está al menos 95% segura del choque.
-    resultados = modelo(frame, conf=0.95)
+    resultados = modelo(frame, conf=0.45)
 
     # 4. Dibujamos la caja roja si detecta el choque
     frame_anotado = resultados[0].plot()

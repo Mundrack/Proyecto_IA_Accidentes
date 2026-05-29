@@ -1,8 +1,8 @@
 # Rutas a tus carpetas de imágenes (usamos barras normales /)
 # Para este prototipo, usaremos la misma carpeta para entrenar y validar
 # path: Carpeta raíz de tus datos. Indica el directorio principal en tu PC que contiene la base de datos completa.
-# En tu caso, dirige a la carpeta doblemente anidada donde están las anotaciones (.txt) de MakeSense.
-path: C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/Data-Guardada/Data-Guardada/Data-Guardada
+# Tras tu limpieza, ahora apunta a la carpeta raíz simplificada Data-Guardada.
+path: C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/Data-Guardada
 
 # train: Carpeta con las imágenes que la IA usará para aprender (ruta relativa a la raíz 'path' indicada arriba).
 train: head_on_collision

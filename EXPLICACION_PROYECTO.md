@@ -33,8 +33,8 @@ A continuación, se detalla qué hace cada ruta configurada en el proyecto y a d
 Este archivo es el mapa de carreteras que le indica a YOLO dónde buscar las fotos y etiquetas de los accidentes.
 
 *   **`path`**: **Carpeta raíz del dataset.**
-    *   *¿A dónde dirige?* A `C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/Data-Guardada/Data-Guardada/Data-Guardada`.
-    *   *¿Por qué?* Porque tu dataset etiquetado real (con los archivos `.txt` de MakeSense) quedó guardado en esta carpeta doblemente anidada. Dirigir aquí asegura que la IA aprenda usando datos anotados reales y no imágenes vacías.
+    *   *¿A dónde dirige?* A `C:/Users/MateoGPugaM/OneDrive - Grupo Radical/Escritorio/Proyecto_IA_Accidentes/Data-Guardada`.
+    *   *¿Por qué?* Tras limpiar las subcarpetas redundantes, ahora las categorías como `head_on_collision` están directamente bajo la carpeta raíz `Data-Guardada`.
 *   **`train`**: **Imágenes para el entrenamiento.**
     *   *¿A dónde dirige?* A la subcarpeta `head_on_collision` (es una ruta relativa, por lo que YOLO la busca dentro del `path` definido arriba).
 *   **`val`**: **Imágenes para validar el aprendizaje.**
@@ -75,12 +75,18 @@ Cuando estés listo para probar, abre una terminal en tu computadora dentro de l
 
 1.  **Para iniciar el entrenamiento local (25 épocas en CPU):**
     ```bash
-    python entrenar_modelo.py
+    py entrenar_modelo.py
     ```
-    *Nota: Esto leerá el dataset configurado en tu disco `C:` y guardará todos los gráficos en la carpeta `runs/`.*
+    *Nota: Se recomienda usar 'py' como lanzador robusto en tu sistema Windows. Esto leerá el dataset configurado y guardará los resultados en 'runs/'.*
 
-2.  **Para probar los resultados de la IA en tiempo real sobre un video:**
+2.  **Para probar los resultados de la IA en tiempo real (OpenCV):**
     ```bash
-    python prueba_final.py
+    py prueba_final.py
     ```
-    *Nota: Se abrirá una ventana de OpenCV mostrando las predicciones en vivo.*
+    *Nota: Se abrirá una ventana clásica de OpenCV mostrando las predicciones.*
+
+3.  **Para lanzar tu Panel Interactivo Web (Streamlit Dashboard) Premium:**
+    ```bash
+    py -m streamlit run app_dashboard.py
+    ```
+    *Nota: Este comando inicia tu aplicación interactiva local y la abre en tu navegador de internet en tiempo real.*
