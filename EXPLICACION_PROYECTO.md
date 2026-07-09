@@ -20,6 +20,12 @@ Puedes leer este archivo cuantas veces quieras directamente en tu editor de cód
 * **¿Para qué sirve?**
   Es el resultado final del proyecto. Sirve para evaluar si la IA realmente aprendió a identificar choques. Si la IA detecta un accidente, dibuja de forma automática una **caja roja en la pantalla** alrededor de los autos colisionando y escribe la etiqueta `"accidente"`.
 
+### 🔄 `reentrenar_modelo.py` (Re-entrenamiento Incremental)
+* **¿Qué hace?**
+  Toma los pesos de tu mejor entrenamiento previo (`runs/detect/mi_modelo_accidentes/weights/best.pt`) y continúa el proceso de aprendizaje incorporando las fotos y etiquetas nuevas.
+* **¿Para qué sirve?**
+  Permite expandir y mejorar tu modelo sin tener que empezar desde cero. La IA conserva todo lo aprendido antes y solo refina su conocimiento con las nuevas fotos.
+
 ---
 
 ## 📍 2. Guía Completa de Rutas en tu PC
@@ -73,19 +79,25 @@ Este archivo hace la demostración de la IA en tiempo real.
 
 Cuando estés listo para probar, abre una terminal en tu computadora dentro de la carpeta del proyecto y ejecuta estos comandos:
 
-1.  **Para iniciar el entrenamiento local (25 épocas en CPU):**
+1.  **Para iniciar el entrenamiento inicial (desde cero):**
     ```bash
     py entrenar_modelo.py
     ```
-    *Nota: Se recomienda usar 'py' como lanzador robusto en tu sistema Windows. Esto leerá el dataset configurado y guardará los resultados en 'runs/'.*
+    *Nota: Esto leerá el dataset y comenzará el aprendizaje desde la red neuronal base yolov8n.*
 
-2.  **Para probar los resultados de la IA en tiempo real (OpenCV):**
+2.  **Para iniciar el re-entrenamiento con imágenes nuevas (Transfer Learning):**
+    ```bash
+    py reentrenar_modelo.py
+    ```
+    *Nota: Este script tomará tus pesos previos 'best.pt' y continuará el aprendizaje agregando tus nuevas anotaciones.*
+
+3.  **Para probar los resultados de la IA en tiempo real (OpenCV):**
     ```bash
     py prueba_final.py
     ```
     *Nota: Se abrirá una ventana clásica de OpenCV mostrando las predicciones.*
 
-3.  **Para lanzar tu Panel Interactivo Web (Streamlit Dashboard) Premium:**
+4.  **Para lanzar tu Panel Interactivo Web (Streamlit Dashboard) Premium:**
     ```bash
     py -m streamlit run app_dashboard.py
     ```

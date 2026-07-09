@@ -1,0 +1,82 @@
+[
+    {
+        "id": "20260709_173656",
+        "fecha": "2026-07-09 17:36:56",
+        "video": "head_on_collision_13.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 1,
+        "segundos": [
+            "2.94s"
+        ],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    },
+    {
+        "id": "20260709_173911",
+        "fecha": "2026-07-09 17:39:11",
+        "video": "head_on_collision_28.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 0,
+        "segundos": [],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    },
+    {
+        "id": "20260709_174002",
+        "fecha": "2026-07-09 17:40:02",
+        "video": "head_on_collision_22.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 1,
+        "segundos": [
+            "1.84s"
+        ],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    },
+    {
+        "id": "20260709_174809",
+        "fecha": "2026-07-09 17:48:09",
+        "video": "head_on_collision_27.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 0,
+        "segundos": [],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    },
+    {
+        "id": "20260709_174840",
+        "fecha": "2026-07-09 17:48:40",
+        "video": "head_on_collision_5.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 1,
+        "segundos": [
+            "4.77s"
+        ],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    },
+    {
+        "id": "20260709_180007",
+        "fecha": "2026-07-09 18:00:07",
+        "video": "head_on_collision_5.mp4",
+        "modelo": "YOLOv8 Especializado (v1)",
+        "sensibilidad": 0.25,
+        "colisiones": 1,
+        "segundos": [
+            "4.77s"
+        ],
+        "precision": 70.9,
+        "recall": 84.9,
+        "map": 84.6
+    }
+]

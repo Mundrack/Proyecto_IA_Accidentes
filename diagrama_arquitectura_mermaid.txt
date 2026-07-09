@@ -1,0 +1,60 @@
+flowchart TD
+    %% ==========================================
+    %% DISEÑO DE ESTILOS Y COLORES NEÓN PREMIUM
+    %% ==========================================
+    classDef f1 fill:#090d16,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef f2 fill:#090d16,stroke:#c084fc,stroke-width:2px,color:#f8fafc;
+    classDef f3 fill:#090d16,stroke:#facc15,stroke-width:2px,color:#f8fafc;
+    classDef f4 fill:#090d16,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+    classDef db fill:#1e293b,stroke:#94a3b8,stroke-width:1px,color:#f8fafc;
+
+    %% ==========================================
+    %% FASE 1: EXTRACCIÓN Y CURACIÓN DE DATOS
+    %% ==========================================
+    subgraph Fase1 ["Fase 1: Extracción y Curación de Datos"]
+        A["🎥 Videos Viales Crudos (.mp4 / .avi)"] --> B["⚙️ Procesamiento OpenCV (prueba_deteccion.py)"]
+        B --> C["✂️ Filtro Temporal (Submuestreo: 1 frame cada 10)"]
+        C --> D["🖼️ Dataset de Frames Extraídos (.jpg)"]
+    end
+
+    %% ==========================================
+    %% FASE 2: ETIQUETADO Y CONFIGURACIÓN
+    %% ==========================================
+    subgraph Fase2 ["Fase 2: Etiquetado y Estructura"]
+        D --> E["🌐 Plataforma MakeSense.ai"]
+        E --> F["🏷️ Lógica de 'Bloque de Colisión' (Clase Única: accidente)"]
+        F --> G["📂 Exportación de Etiquetas en Formato YOLO (.txt)"]
+        G --> H["🛠️ Configuración de dataset.yaml (Estructura de Carpetas)"]
+    end
+
+    %% ==========================================
+    %% FASE 3: ENTRENAMIENTO E INFERENCIA INCREMENTAL
+    %% ==========================================
+    subgraph Fase3 ["Fase 3: Entrenamiento Convolucional"]
+        H --> I["🤖 Modelo Base YOLOv8-Nano (yolov8n.pt)"]
+        I --> J["🔥 Transfer Learning (Transferencia de Aprendizaje)"]
+        J --> K["💾 Pesos Especializados Entrenados (best.pt)"]
+        K --> L["🔄 Re-entrenamiento Incremental (reentrenar_modelo.py)"]
+        L --> M["🏆 Modelo Especializado v2 (mi_modelo_accidentes_v2)"]
+    end
+
+    %% ==========================================
+    %% FASE 4: DESPLIEGUE E INTERFAZ OPERATIVA
+    %% ==========================================
+    subgraph Fase4 ["Fase 4: Panel Operativo (app_dashboard.py)"]
+        M & K --> N["💻 Interfaz Web Interactiva (Streamlit)"]
+        N --> O["📁 Subida de Videos de Tránsito por el Operador"]
+        O --> P["⚙️ Selección de Cerebro IA & Ajuste de Confianza (Slider)"]
+        P --> Q["📺 Monitoreo y Procesamiento de Frames en Tiempo Real"]
+        Q --> R["🚨 Detección de Accidentes y Alertas Visuales"]
+        R --> S["📋 Registro de Marcas de Tiempo en Segundos (Bitácora)"]
+        S --> T["💾 Almacenamiento Persistente en historial_analisis.json"]
+        T --> U["⚖️ Generación de Reporte Comparativo frente al Modelo Ideal"]
+    end
+
+    %% Asignación de Estilos a los Bloques del Diagrama
+    class A,B,C,D f1;
+    class E,F,G,H f2;
+    class I,J,K,L,M f3;
+    class N,O,P,Q,R,S,U f4;
+    class T db;
